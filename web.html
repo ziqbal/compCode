@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CompCode Web Test</title>
+
+<script src='jquery.js'></script>
+
+</head>
+<body>
+
+<div>
+Enter code to verify code length and checksum digit
+</div>
+
+<input id='inCompCode' type='text' value='5189320817z'/>
+    
+<script>
+    
+var _cc = ( function( ) {
+    
+    var alphabet = [ "1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "0" ];
+    var el = null;
+    var timeout = null;
+    
+    var lock = null;
+    
+    my = function( ) { };
+    
+    my.init = function( ) { };
+
+    my.inputChange = function( e ) {
+        
+        el = e;
+        
+        if ( timeout !== null ) clearTimeout( timeout );
+        
+        timeout = setTimeout( my.process , 100 );
+        
+    };
+    
+    my.process = function( ) {
+        
+        if ( lock !== null ) return;
+        
+        lock = true;
+        
+        var code = $( el ).val( );
+
+
+        $( "#debug" ).html( "???" );
+        
+        if ( (code != "" ) && ( code.length == 10 ) ) {
+            
+            var parts = code.split( "" );
+            
+            var a = 0;
+            
+            for( var i = 0 ; i < ( parts.length -1 ) ; i++ ) {
+
+                a += parts[i].charCodeAt();
+                
+                if ( (i % 2) == 0) a += parts[i].charCodeAt();
+                
+            }
+            
+            if ( alphabet[ a % alphabet.length ] == parts[ parts.length - 1 ] ) {
+                
+                $( "#debug" ).html( "OK" );
+                
+            }
+            
+            
+        }
+        
+        lock = null;
+        
+    };
+
+    my();
+    
+    return(my);
+    
+})();
+
+
+$(function(){
+    
+    $('#inCompCode').on('input',function(){
+
+        _cc.inputChange(this);
+        
+    });
+    
+});    
+    
+    
+</script>    
+    
+<div id='debug'></div>
+    
+</body>
+</html>
