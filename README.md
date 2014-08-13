@@ -3,7 +3,7 @@ compCode
 
 Generate codes for competitions, coupons , vouchers etc.
 
-Use the gen.php to generate your codes.
+Use the gen.php script to generate your codes.
 
 Modify the relevant variables to change the number of codes you require etc.
 
